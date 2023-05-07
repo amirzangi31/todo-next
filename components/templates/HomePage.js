@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Tasks from "../modules/Tasks";
+import Loader from "../modules/Loader";
 
 function HomePage() {
   const [loading, setLoading] = useState(false);
@@ -19,17 +20,21 @@ function HomePage() {
     <div className="home-page">
       <div className="home-page--todo">
         <p>Todo</p>
-        <Tasks
-          fetchTodos={fetchTodos}
-          setLoading={setLoading}
-          next="inProgress"
-          data={todos.todo}
-        />
+        {loading ? (
+          <Loader />
+        ) : (
+          <Tasks
+            fetchTodos={fetchTodos}
+            setLoading={setLoading}
+            next="inProgress"
+            data={todos.todo}
+          />
+        )}
       </div>
       <div className="home-page--inProgress">
         <p>In Progress</p>
         {loading ? (
-          "loading"
+          <Loader />
         ) : (
           <Tasks
             fetchTodos={fetchTodos}
@@ -42,22 +47,30 @@ function HomePage() {
       </div>
       <div className="home-page--review">
         <p>Review</p>
-        <Tasks
-          fetchTodos={fetchTodos}
-          setLoading={setLoading}
-          next="done"
-          back="inProgress"
-          data={todos.review}
-        />
+        {loading ? (
+          <Loader />
+        ) : (
+          <Tasks
+            fetchTodos={fetchTodos}
+            setLoading={setLoading}
+            next="done"
+            back="inProgress"
+            data={todos.review}
+          />
+        )}
       </div>
       <div className="home-page--done">
         <p>Done</p>
-        <Tasks
-          fetchTodos={fetchTodos}
-          setLoading={setLoading}
-          back="review"
-          data={todos.done}
-        />
+        {loading ? (
+          <Loader />
+        ) : (
+          <Tasks
+            fetchTodos={fetchTodos}
+            setLoading={setLoading}
+            back="review"
+            data={todos.done}
+          />
+        )}
       </div>
     </div>
   );
