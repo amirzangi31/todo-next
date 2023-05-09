@@ -11,4 +11,12 @@ const sortTodos = todos => {
 
 }
 
-export { sortTodos }
+
+const todoOne = (todos, id) => {
+    const result = todos.filter(item => item._id === id)
+    return result
+}
+
+
+
+export { sortTodos, todoOne }

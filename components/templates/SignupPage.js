@@ -28,10 +28,11 @@ function SignupPage() {
             router.push("/signin")
         }
     }
-    
+
     const { status } = useSession()
     useEffect(() => {
         if (status === "authenticated") router.replace("/")
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status])
 
 

@@ -9,15 +9,15 @@ function ProfilePage() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [data, setData] = useState(null);
+  
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [data]);
 
   const fetchUser = async () => {
     const res = await fetch("/api/auth/profile");
     const data = await res.json();
-
     if (data.status === "success" && data.data.name && data.data.lastName) {
       setData(data.data);
     }
@@ -40,7 +40,7 @@ function ProfilePage() {
       <h2>
         <CgProfile /> Profile
       </h2>
-
+    
       {data ? (
         <ProfileData data={data} />
       ) : (

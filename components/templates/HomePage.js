@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import Tasks from "../modules/Tasks";
 import Loader from "../modules/Loader";
 
+
 function HomePage() {
-  const [loading, setLoading] = useState(false);
-  const [todos, setTodos] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+  const [todos, setTodos] = useState({});
+
+
 
   useEffect(() => {
     fetchTodos();
@@ -13,8 +17,27 @@ function HomePage() {
   const fetchTodos = async () => {
     const res = await fetch("/api/todos");
     const data = await res.json();
-    if (data.status === "success") setTodos(data.data.todos);
+    if (data.status === "success") {
+      setLoading(false)
+      setTodos(data.data.todos);
+    }
   };
+
+
+
+  if (loading && Object.keys(todos).length === 0) return (
+    <div className="min-h-[calc(100vh-180px)] flex justify-center items-center">
+      <p className="font-bold text-2xl md:text-3xl text-red-400">Loading ....</p>
+    </div>
+  )
+
+
+  if (Object.keys(todos).length === 0) return (
+    <div className="min-h-[calc(100vh-180px)] flex justify-center items-center">
+      <p className="font-bold text-2xl md:text-3xl text-red-400">Todos container is empty.....</p>
+    </div>
+  )
+
 
   return (
     <div className="home-page">

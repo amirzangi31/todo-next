@@ -10,7 +10,7 @@ const handler = async (req, res) => {
     try {
         await connectDB();
     } catch (err) {
-        console.log(err);
+  
         return res
             .status(500)
             .json({ status: "failed", message: "Error in connecting to DB" });
@@ -29,8 +29,9 @@ const handler = async (req, res) => {
 
     if (req.method === "POST") {
         const { name, lastName, password } = req.body
+        console.log(name , lastName , password)
         const isValid = await verifyPassword(password, user.password)
-        console.log(isValid)
+
         if (!isValid) {
             return res.status(422).json({ status: "failed", message: "Password is incorrect" })
         }

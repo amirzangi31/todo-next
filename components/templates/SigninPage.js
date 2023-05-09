@@ -18,7 +18,7 @@ function SigninPage() {
     useEffect(() => {
         if (status === "authenticated") router.replace("/")
 
-
+     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status])
 
 
@@ -30,7 +30,7 @@ function SigninPage() {
             redirect: false
         })
 
-        console.log(res)
+        
         if (!res.error) router.push("/")
     }
 
