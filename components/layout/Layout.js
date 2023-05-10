@@ -14,7 +14,7 @@ function Layout({ children }) {
     <div className="container">
       <header>
         {status === "authenticated" && <p> Todo app ({data.user.email})</p>}
-        <p className="text-xs">Hello ! {status === "authenticated" && data.user.email}</p>
+       
         {status === "authenticated" ? (<button onClick={() => signOut()}>  Log Out <FiLogOut /> </button>) : null}
       </header>
       <div className="container--main">
