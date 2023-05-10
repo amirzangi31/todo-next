@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 function SignupPage() {
 
-
+    const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -13,7 +13,7 @@ function SignupPage() {
 
     const signup = async (e) => {
         e.preventDefault();
-
+        setLoading(true)
         const res = await fetch("/api/auth/signup", {
             method: 'POST',
             body: JSON.stringify({
@@ -26,6 +26,7 @@ function SignupPage() {
         const data = await res.json()
         if (data.status === "success") {
             router.push("/signin")
+            setLoading(false)
         }
     }
 
@@ -41,7 +42,8 @@ function SignupPage() {
             <h3>Registeration Form </h3>
             <input type="text" name="email" placeholder='email' value={email} onChange={e => setEmail(e.target.value)} />
             <input type="password" name="password" placeholder='password' value={password} onChange={e => setPassword(e.target.value)} />
-            <button onClick={signup} >Register</button>
+            <button onClick={signup} disabled={loading}  >{loading ? "Loading..." : "Register"}</button>
+
             <div>
                 <p>Have an account ? </p>
                 <Link href={"/signin"} >SignIn</Link>

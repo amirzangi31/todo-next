@@ -23,6 +23,7 @@ function EditPage({ todo }) {
 
 
     const updateHandler = async () => {
+        setLoading(true)
         const res = await fetch(`/api/todo/${router.query.todo}`, {
             method: "PATCH",
 
@@ -38,6 +39,7 @@ function EditPage({ todo }) {
             setStatus("todo");
             toast.success(data.message);
             router.push("/")
+            setLoading(false)
         }
     };
 

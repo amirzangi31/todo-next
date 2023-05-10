@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 function ProfileData({ data }) {
@@ -15,6 +16,9 @@ function ProfileData({ data }) {
                 <span>Email : </span>
                 <p>{data?.email} </p>
             </div>
+            <Link href={"/profile/update"}>
+                <button type="button" className='bg-gray-300' >Edit Profile</button>
+            </Link>
         </div>
     )
 }

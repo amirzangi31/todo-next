@@ -10,7 +10,7 @@ const handler = async (req, res) => {
     try {
         await connectDB();
     } catch (err) {
-  
+
         return res
             .status(500)
             .json({ status: "failed", message: "Error in connecting to DB" });
@@ -27,9 +27,8 @@ const handler = async (req, res) => {
     }
 
 
-    if (req.method === "POST") {
+    if (req.method === "POST" || req.method === "PATCH") {
         const { name, lastName, password } = req.body
-        console.log(name , lastName , password)
         const isValid = await verifyPassword(password, user.password)
 
         if (!isValid) {
@@ -41,10 +40,8 @@ const handler = async (req, res) => {
         user.save()
 
         return res.status(200).json({ status: "success", data: { name, lastName, email: session.user.email } })
-
-
     } else if (req.method === "GET") {
-        return res.status(200).json({ status: "success", data: { name: user.name, email: user.email, lastName: user.lastName  } })
+        return res.status(200).json({ status: "success", data: { name: user.name, email: user.email, lastName: user.lastName } })
     }
 
 

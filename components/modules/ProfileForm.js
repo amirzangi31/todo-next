@@ -8,6 +8,7 @@ function ProfileForm({
   setName,
   setPassword,
   submitHandler,
+  loading
 }) {
   return (
     <>
@@ -43,7 +44,7 @@ function ProfileForm({
           />
         </div>
       </div>
-      <button onClick={submitHandler}>Update</button>
+      <button onClick={submitHandler} disabled={loading}>{loading ? "loading ..." : "Update"}</button>
     </>
   );
 }

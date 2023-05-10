@@ -34,7 +34,11 @@ const authOptions = {
         return { email };
       },
     }),
+
   ],
+  pages: {
+    signIn: "/signin"
+  }
 };
 
 export default NextAuth(authOptions);

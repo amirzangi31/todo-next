@@ -6,7 +6,7 @@ import { signIn, useSession } from 'next-auth/react'
 
 
 function SigninPage() {
-
+    const [loading, setLoading] = useState(false)
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -18,20 +18,22 @@ function SigninPage() {
     useEffect(() => {
         if (status === "authenticated") router.replace("/")
 
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status])
 
 
 
     const signInHandler = async (e) => {
+        setLoading(true)
         const res = await signIn("credentials", {
             email,
             password,
             redirect: false
         })
 
-        
+
         if (!res.error) router.push("/")
+        setLoading(false)
     }
 
 
@@ -41,7 +43,7 @@ function SigninPage() {
             <h3>Login Form </h3>
             <input type="text" name="email" placeholder='email' value={email} onChange={e => setEmail(e.target.value)} />
             <input type="password" name="password" placeholder='password' value={password} onChange={e => setPassword(e.target.value)} />
-            <button onClick={signInHandler} >Login</button>
+            <button onClick={signInHandler} disabled={loading}  >{loading ? "Loading..." : "Login"}</button>
             <div>
                 <p>Create an account ? </p>
                 <Link href={"/signup"} >SignUp</Link>
